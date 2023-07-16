@@ -6,6 +6,8 @@
 #include <stdio.h>
 
 #define HS_RL_BUFSIZE 1024
+#define HS_TOK_BUFSIZE 64
+#define HS_TOK_DELIM " \t\r\n\a"
 
 // Function prototypes
 void hs_loop(void);
@@ -73,6 +75,39 @@ char *hs_read_line(void){
     }
   }
   return line;
+}
+
+char **hs_split_line(char *line){
+  int bufsize = HS_TOK_BUFSIZE,position = 0;
+  char **tokens = malloc(bufsize * sizeof(char*));
+  char *token;
+
+  if (!tokens){
+    fprintf(stderr,"hs: erro de alocacao\n");
+    exit(EXIT_FAILURE);
+  }
+
+  token = strtok(line,HS_TOK_DELIM);
+  while (token != NULL)
+  {
+    tokens[position] = token;
+    position++;
+
+    if(position >= bufsize){
+      bufsize += HS_TOK_BUFSIZE;
+      tokens = realloc(tokens,bufsize * sizeof(char*));
+      if (!tokens){
+        fprintf(stderr,"hs: erro de alocacao\n");
+        exit(EXIT_FAILURE);
+      }
+    }
+
+    token = strtok(NULL,HS_TOK_DELIM);
+  }
+  tokens[position] = NULL;
+  return tokens;
+  
+  
 }
 
 int main(int argc, char **argv)
