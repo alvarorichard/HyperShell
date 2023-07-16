@@ -35,7 +35,7 @@ cd HyperShell/src
 
 * help: Displays information about the built-in commands.
 
-*  Supports external commands like ls, cat, echo and more.
+*  Supports external commands like LS
 
 ## Contributing
 
