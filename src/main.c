@@ -132,6 +132,57 @@ int hs_launch(char **args){
   return 1;
 }
 
+int hs_cd(char **args);
+int hs_help(char **args);
+int hs_exit(char **args);
+
+char *builtin_str[] = {
+  "cd",
+  "help",
+  "exit"
+};
+
+int (*builtin_func[]) (char **) = {
+  &hs_cd,
+  &hs_help,
+  &hs_exit
+};
+
+int hs_num_builtins(){
+  return sizeof(builtin_str) / sizeof(char *);
+}
+
+
+int hs_cd(char **args){
+  if (args[1] == NULL){
+    fprintf(stderr,"hs: expected argument to \"cd\"\n");
+  } else {
+    if (chdir(args[1]) != 0){
+      perror("hs");
+    }
+  }
+  return 1;
+}
+
+int hs_help(char **args){
+  int i;
+  printf("HyperShell\n");
+  printf("Digite os nomes dos programas e argumentos, e pressione enter.\n");
+  printf("Os seguintes comandos sao nativos:\n");
+
+  for (i = 0; i < hs_num_builtins(); i++){
+    printf("  %s\n",builtin_str[i]);
+  }
+ 
+ printf("use o comando man para obter informacoes sobre outros programas.\n");
+  return 1;
+
+}
+
+int hs_exit(char **args){
+  return 0;
+}
+
 int main(int argc, char **argv)
 {
   hs_loop();
