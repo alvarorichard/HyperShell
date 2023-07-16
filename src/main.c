@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <stdio.h>
+#include <string.h>
 
 #define HS_RL_BUFSIZE 1024
 #define HS_TOK_BUFSIZE 64
@@ -12,6 +13,12 @@
 // Function prototypes
 void hs_loop(void);
 char *hs_read_line(void);
+char **hs_split_line(char *line);
+int hs_execute(char **args);
+int hs_launch(char **args);
+int hs_cd(char **args);
+int hs_help(char **args);
+int hs_exit(char **args);
 
 char *hs_read_line(void){
   int bufsize = HS_RL_BUFSIZE;
@@ -45,6 +52,7 @@ char *hs_read_line(void){
     }
   }
 }
+
 void hs_loop(void){
   char*line;
   char**args;
@@ -60,21 +68,6 @@ void hs_loop(void){
     free(args);
   } while (status);
   
-}
-
-char *hs_read_line(void){
-  char *line = NULL;
-  ssize_t bufsize = 0;
-
-  if (getline(&line,&bufsize,stdin) == -1){
-    if (feof(stdin)){
-      exit(EXIT_SUCCESS);
-    } else {
-      perror("hs: getline\n");
-      exit(EXIT_FAILURE);
-    }
-  }
-  return line;
 }
 
 char **hs_split_line(char *line){
@@ -106,8 +99,6 @@ char **hs_split_line(char *line){
   }
   tokens[position] = NULL;
   return tokens;
-  
-  
 }
 
 int hs_launch(char **args){
@@ -132,10 +123,6 @@ int hs_launch(char **args){
   return 1;
 }
 
-int hs_cd(char **args);
-int hs_help(char **args);
-int hs_exit(char **args);
-
 char *builtin_str[] = {
   "cd",
   "help",
@@ -151,7 +138,6 @@ int (*builtin_func[]) (char **) = {
 int hs_num_builtins(){
   return sizeof(builtin_str) / sizeof(char *);
 }
-
 
 int hs_cd(char **args){
   if (args[1] == NULL){
