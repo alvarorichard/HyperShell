@@ -130,6 +130,7 @@ char *builtin_str[] = {
   "help",
   "exit"
   "echo"
+  "cat"
 };
 
 int (*builtin_func[]) (char **) = {
