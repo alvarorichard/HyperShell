@@ -19,6 +19,7 @@ int hs_launch(char **args);
 int hs_cd(char **args);
 int hs_help(char **args);
 int hs_exit(char **args);
+int hs_echo(char **args);
 
 char *hs_read_line(void){
   int bufsize = HS_RL_BUFSIZE;
@@ -127,13 +128,26 @@ char *builtin_str[] = {
   "cd",
   "help",
   "exit"
+  "echo"
 };
 
 int (*builtin_func[]) (char **) = {
   &hs_cd,
   &hs_help,
-  &hs_exit
+  &hs_exit,
+  &hs_echo
 };
+
+int hs_echo(char **args){
+  int i = 1;
+  while (args[i] != NULL){
+    printf("%s ", args[i]);
+    i++;
+  }
+  printf("\n");
+  return 1;
+}
+
 
 int hs_num_builtins(){
   return sizeof(builtin_str) / sizeof(char *);
