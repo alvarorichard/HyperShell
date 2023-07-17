@@ -20,6 +20,7 @@ int hs_cd(char **args);
 int hs_help(char **args);
 int hs_exit(char **args);
 int hs_echo(char **args);
+int hs_cat(char **args);
 
 char *hs_read_line(void){
   int bufsize = HS_RL_BUFSIZE;
@@ -135,8 +136,31 @@ int (*builtin_func[]) (char **) = {
   &hs_cd,
   &hs_help,
   &hs_exit,
-  &hs_echo
+  &hs_echo,
+  &hs_cat
 };
+int hs_cat(char **args){
+  if (args[1] == NULL){
+    fprintf(stderr,"hs: expected argument to \"cat\"\n");
+    return 1;
+  }
+
+  FILE *file = fopen(args[1], "r");
+  if (file == NULL){
+    perror("hs");
+    return 1;
+  }
+
+  char c;
+  while ((c = fgetc(file)) != EOF){
+    putchar(c);
+  }
+
+  fclose(file);
+  return 1;
+}
+
+
 
 int hs_echo(char **args){
   int i = 1;
