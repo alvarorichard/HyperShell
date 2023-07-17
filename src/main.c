@@ -21,6 +21,7 @@ int hs_help(char **args);
 int hs_exit(char **args);
 int hs_echo(char **args);
 int hs_cat(char **args);
+int hs_touch(char **args);
 
 char *hs_read_line(void){
   int bufsize = HS_RL_BUFSIZE;
@@ -131,6 +132,7 @@ char *builtin_str[] = {
   "exit"
   "echo"
   "cat"
+  "touch"
 };
 
 int (*builtin_func[]) (char **) = {
@@ -138,8 +140,27 @@ int (*builtin_func[]) (char **) = {
   &hs_help,
   &hs_exit,
   &hs_echo,
-  &hs_cat
+  &hs_cat,
+  &hs_touch
 };
+int hs_touch(char **args){
+  if (args[1] == NULL){
+    fprintf(stderr,"hs: expected argument to \"touch\"\n");
+    return 1;
+  }
+
+  FILE *file = fopen(args[1], "a");
+  if (file == NULL){
+    perror("hs");
+    return 1;
+  }
+
+  fclose(file);
+  return 1;
+}
+
+
+
 int hs_cat(char **args){
   if (args[1] == NULL){
     fprintf(stderr,"hs: expected argument to \"cat\"\n");
