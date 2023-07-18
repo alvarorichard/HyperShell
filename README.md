@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="https://i.imgur.com/OIO9XyE.png" alt="Imagem logo" />
+</p>
+
+
 # HyperShell
 HyperShell is a simple shell implementation in C. It provides a command line interface for users to interact with the operating system.
 
