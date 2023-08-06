@@ -10,7 +10,6 @@
 #define HS_TOK_BUFSIZE 64
 #define HS_TOK_DELIM " \t\r\n\a"
 
-// Function prototypes
 void hs_loop(void);
 char *hs_read_line(void);
 char **hs_split_line(char *line);
