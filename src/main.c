@@ -29,7 +29,7 @@ char *hs_read_line(void){
   int c;
 
   if (!buffer) {
-    fprintf(stderr, "hs: allocation error\n");
+    fprintf(stderr, "hs: Erro de alocação\n");
     exit(EXIT_FAILURE);
   }
 
@@ -48,7 +48,7 @@ char *hs_read_line(void){
       bufsize += HS_RL_BUFSIZE;  
       buffer = realloc(buffer, bufsize);
       if (!buffer) {
-        fprintf(stderr, "hs: allocation error\n");
+        fprintf(stderr, "hs: Erro de alocação\n");
         exit(EXIT_FAILURE);
       }
     }
@@ -78,7 +78,7 @@ char **hs_split_line(char *line){
   char *token;
 
   if (!tokens){
-    fprintf(stderr,"hs: erro de alocacao\n");
+    fprintf(stderr,"hs: Erros de alocação\n");
     exit(EXIT_FAILURE);
   }
 
@@ -92,7 +92,7 @@ char **hs_split_line(char *line){
       bufsize += HS_TOK_BUFSIZE;
       tokens = realloc(tokens,bufsize * sizeof(char*));
       if (!tokens){
-        fprintf(stderr,"hs: erro de alocacao\n");
+        fprintf(stderr,"hs: Erros de alocação\n");
         exit(EXIT_FAILURE);
       }
     }
@@ -144,7 +144,7 @@ int (*builtin_func[]) (char **) = {
 };
 int hs_touch(char **args){
   if (args[1] == NULL){
-    fprintf(stderr,"hs: expected argument to \"touch\"\n");
+    fprintf(stderr,"hs: argumento esperado para \"touch\"\n");
     return 1;
   }
 
@@ -162,7 +162,7 @@ int hs_touch(char **args){
 
 int hs_cat(char **args){
   if (args[1] == NULL){
-    fprintf(stderr,"hs: expected argument to \"cat\"\n");
+    fprintf(stderr,"hs: argumento esperado para\"cat\"\n");
     return 1;
   }
 
@@ -200,7 +200,7 @@ int hs_num_builtins(){
 
 int hs_cd(char **args){
   if (args[1] == NULL){
-    fprintf(stderr,"hs: expected argument to \"cd\"\n");
+    fprintf(stderr,"hs: argumento esperado para \"cd\"\n");
   } else {
     if (chdir(args[1]) != 0){
       perror("hs");
