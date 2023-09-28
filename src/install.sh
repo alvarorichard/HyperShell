@@ -18,7 +18,7 @@ fi
 echo "Compilando com $COMPILER..."
 
 # Compila o código
-$COMPILER main.c -o hs
+$COMPILER main.c  hs_builtin.c hs_loop.c hs_read_line.c hs_split_line.c hs_launch.c -o hs
 
 # Torna o binário executável
 chmod +x hs
