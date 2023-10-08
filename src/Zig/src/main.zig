@@ -1,6 +1,8 @@
 const std = @import("std");
 const stdout = std.io.getStdOut().writer();
 const Allocator = std.mem.Allocator;
+const mem = std.mem;
+
 const c = @cImport({
     @cInclude("unistd.h");
     @cInclude("sys/types.h");
@@ -25,10 +27,14 @@ fn hs_loop(allocator: *Allocator) !void {
     }
 }
 
+
 fn hs_split_line(allocator: *Allocator, line: []const u8) !?[]const []const u8 {
     _ = line;
     _ = allocator;
-    // Your implementation here
+
+    
+    
+
     return null;
 }
 
@@ -42,5 +48,5 @@ fn hs_execute(args: []const []const u8) !c.int {
 
 pub fn main() !void {
     const allocator = std.heap.page_allocator;
-    try hs_loop(allocator);
+    try hs_loop(&allocator);
 }
