@@ -18,7 +18,11 @@ fi
 echo "Compilando com $COMPILER..."
 
 # Compila o código
-$COMPILER main.c  hs_builtin.c hs_loop.c hs_read_line.c hs_split_line.c hs_launch.c -o hs
+
+# use a pasta src/ para compilar o código
+$COMPILER src/main.c src/hs_builtin.c src/hs_loop.c src/hs_read_line.c src/hs_split_line.c src/hs_launch.c -o hs
+
+
 
 # Torna o binário executável
 chmod +x hs

@@ -1,6 +1,7 @@
 #include "hs_helpers.h"
 
-void hs_loop(void){
+void hs_loop(void)
+{
   char*line;
   char**args;
   char status;
